@@ -1,34 +1,29 @@
-   
-
-   <script>
-     let count = 0
-     let multiplier = 1
-     function ranDom(max){
+<script lang="ts">
+     let count = 0;
+     let multiplier = 1;
+     function ranDom(max: number){
         return Math.random() * max | 0;
      }
      function increment(){
-        count = count + multiplier
+        count = count + multiplier;
      }
      function decrement(){
-        count = count - multiplier
-     }
-     function multiplierInc(){
-        multiplier += 1
-     }
-     function multiplierDec(){
-        multiplier -= 1
+        count = count - multiplier;
      }
      function random(){
         let n = ranDom(2);
         if(n == 0){
-            count += 1
+            count = count + multiplier;
         } else {
-            count -= 1
+            count = count - multiplier;
         }
      }
-    </script>
-
+</script>
 <style>
+    .parent-container {
+    width: 500px;
+    height: 500px;
+    }
     .ert{
         text-align: center;
         font-size: 1.5rem;
@@ -47,32 +42,62 @@
         font-size: 1.1rem;
         font-family: Georgia, 'Times New Roman', Times, serif
     }
-    .b {
-        border-color:black;
-        background-color:violet;
-        color: red;
-        padding: 10px;
-        margin: 5px;
+    .abcde{
+    border-color: black;
+    background-color: violet;
+    color: red;
+    padding: 10px;
+    margin: 5px;
+    transition: background-color 0.2s;
     }
-    .ab {
-        border-color:darkorchid;
-        background-color:salmon;
-        color:gold;
-        padding: 10px;
-        margin: 0 auto;
+    .abcde:active,
+    .ab:active {
+    background-color: darkviolet; /* Change the background color when the button is clicked */
     }
-    .abcde {
-        border-color: mediumblue;
-        background-color: chartreuse;
-        color:blue;
-        padding: 10px;
-        margin: 5px;
+    .b{
+    border-color:chocolate;
+    background-color: chartreuse;
+    color: green;
+    padding: 10px;
+    margin: 5px;
+    transition: background-color 0.2s;
+    }
+    .ab{
+    border-color:navy;
+    background-color: lavender;
+    color: orange;
+    padding: 10px;
+    margin: 5px;
+    transition: background-color 0.2s;
     }
     .zxc{
         margin: 30px;
         color:crimson
     }
+    .parent-container form {
+    margin:20px 0;
+    padding: 20px;
+    background-color: beige;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Style the input element inside the circular form */
+  .parent-container form input[type="number"] {
+    padding: 10px;
+    border-radius: 50%;
+    text-align: center; /* Center text horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center text vertically */
+    justify-content: center;
+  }
 </style>
+
 <div class='ert'>
     <div class='a'>
         <h1> Advanced counter </h1>
@@ -113,23 +138,11 @@
         </button>
 
         <h2 class='zxc'> or </h2>
-
-        <button class="abcde" on:click={multiplierInc}>
-            <p> Multiplier + 1 </p>
-            {#if count == 1}
-                <p> </p>
-            {:else}
-                <p> </p>
-            {/if}
-        </button>
-
-        <h2 class='zxc> or </h2>
-
-        <button class="ab" on:click={multiplierDec}>
-            <p> Multiplier - 1 </p>
-            if(multiplier <= 0){
-                multiplier = 1}
-        </button>
+        <div class='parent-container'>
+            <form>
+                <input type="number" placeholder="Multiplier" bind:value={multiplier}>
+            </form>
+        </div>
 
     </div>
 </div>
