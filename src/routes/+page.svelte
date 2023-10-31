@@ -1,36 +1,56 @@
 
 <script lang="ts">
-    let count = 0;
-    let multiplier = 1;
-    function displayTextWithDelay() {
-    setTimeout(function() {
-      document.getElementById("game1")!.style.display = "none";
-      document.getElementById("game2")!.style.display = "block";
-    }, 2000);
+
+    import { onMount } from 'svelte';
+
+let count = 0;
+let  multiplier = null;
+let currentText = "game1";
+
+function slide() {
+  document.getElementById("game1")!.style.display = "none";
+  document.getElementById("game2")!.style.display = "none";
+
+  if (currentText === "game1") {
+    currentText = "game2";
+  } else {
+    currentText = "game1";
+  }
+
+  document.getElementById(currentText)!.style.display = "block";
+}
+
+onMount(() => {
+  // Code to run when the component is mounted
+  slide(); // Initial slide
+  setInterval(slide, 5000); // Repeat every 5 seconds
+});
+
+  function ranDom(max: number) {
+    return Math.random() * max | 0;
+  }
+
+  function increment() {
+    count = count + multiplier;
+  }
+
+  function decrement() {
+    count = count - multiplier;
+  }
+
+  function reset1() {
+    count = 0;
+    multiplier = null;
+  }
+
+  function random() {
+    let n = ranDom(2);
+    if (n == 0) {
+      count = count + multiplier;
+    } else {
+      count = count - multiplier;
     }
-    displayTextWithDelay();
-    function ranDom(max: number){
-       return Math.random() * max | 0;
-    }
-    function increment(){
-       count = count + multiplier;
-    }
-    function decrement(){
-       count = count - multiplier;
-    }
-    function reset1(){
-       count = 0;
-    }
-    function random(){
-       let n = ranDom(2);
-       if(n == 0){
-           count = count + multiplier;
-       } else {
-           count = count - multiplier;
-       }
-    }
-    
-    
+  }
 </script>
 <style>
     .parent-container {
@@ -114,6 +134,14 @@
    border: none;
    border-radius: 15px; /* Increase the border-radius for more rounded corners */
    }
+   body {
+    border: 20px solid #333; /* Border width and color */
+    border-radius: 10px; /* Border corner radius for rounded corners */
+    padding: 10px; /* Padding inside the border */
+    
+    height: 100vh; /* Set the body's height to 100% of the viewport height */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
 
    form input[type="number"] {
        padding: 10px;
@@ -164,8 +192,8 @@
             <input type="number" placeholder="Multiplier" bind:value={multiplier}>
         </form>
     </div>
-    <h1 id="game1">Play Tank Aiming 1 by tadim15 on Scratch</h1>
+    <!-- svelte-ignore a11y-img-redundant-alt -->
+    <img src="./Duolingo Ayisi.png" alt="Image of Duolingo Ayisi">
     <h1 id="game2">Play Tank Aiming 2 by tadim15 on Scratch</h1>
-
    </div>
 </div>
